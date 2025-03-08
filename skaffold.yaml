@@ -17,3 +17,11 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
+    - image: rickywizard/client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/app/**/*.jsx'
+            dest: .
