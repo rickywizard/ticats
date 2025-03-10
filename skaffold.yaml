@@ -23,5 +23,5 @@ build:
         dockerfile: Dockerfile
       sync:
         manual:
-          - src: 'src/app/**/*.jsx'
+          - src: 'src/app/**/*.tsx'
             dest: .
