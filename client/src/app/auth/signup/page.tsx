@@ -1,11 +1,30 @@
-import { useState } from 'react';
+'use client';
+
+import { FormEvent, useState } from 'react';
+import ErrorsList from '@/components/errors-list';
+import useRequest from '@/hooks/use-request';
 
 export default function SignupPage() {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const { doRequest, errors } = useRequest({
+    url: '/api/users/signup',
+    method: 'post',
+    body: {
+      email,
+      password,
+    },
+  });
+
+  const onSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+
+    doRequest();
+  };
 
   return (
     <>
+      <ErrorsList errors={errors} />
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
@@ -19,7 +38,7 @@ export default function SignupPage() {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form action="#" method="POST" className="space-y-6">
+          <form onSubmit={onSubmit} className="space-y-6">
             <div>
               <label
                 htmlFor="email"
@@ -31,7 +50,6 @@ export default function SignupPage() {
                 <input
                   id="email"
                   name="email"
-                  type="email"
                   autoComplete="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -72,7 +90,7 @@ export default function SignupPage() {
             <div>
               <button
                 type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 hover:cursor-pointer"
               >
                 Sign up
               </button>
