@@ -3,10 +3,12 @@
 import { FormEvent, useState } from 'react';
 import ErrorsList from '@/components/errors-list';
 import useRequest from '@/hooks/use-request';
+import { useRouter } from 'next/navigation';
 
 export default function SignupPage() {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const router = useRouter();
   const { doRequest, errors } = useRequest({
     url: '/api/users/signup',
     method: 'post',
@@ -14,12 +16,13 @@ export default function SignupPage() {
       email,
       password,
     },
+    onSuccess: () => router.push('/'),
   });
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    doRequest();
+    await doRequest();
   };
 
   return (
