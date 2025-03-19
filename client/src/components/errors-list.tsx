@@ -6,8 +6,8 @@ export default function ErrorsList({ errors }: { errors: ErrorsData[] }) {
   return (
     <div className="fixed top-2 left-1/2 transform -translate-x-1/2 flex flex-col gap-2">
       <AnimatePresence>
-        {errors.length > 0 &&
-          errors.map((err, index) => (
+        {errors?.length > 0 &&
+          errors?.map((err, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: -20 }}
